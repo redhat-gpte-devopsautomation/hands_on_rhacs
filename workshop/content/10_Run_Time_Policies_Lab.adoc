@@ -1,0 +1,202 @@
+:labname: Runtime Policy Enforcement
+
+:includedir:
+
+include::{includedir}../include/00_0_Lab_Header.adoc[]
+
+== {labname} Lab
+
+:numbered:
+
+== Introduction to {labname}
+
+In this lab, you explore the real-time capabilities of Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS) policies after containers are started.
+Runtime policies meet requirements for threat detection and prevention, as well as incident investigation and response.
+
+.Goals
+* Understand runtime policy enforcement features
+* Prevent execution of package manager binary
+* Report and resolve violations
+
+[[labexercises]]
+
+== Runtime Policy Features
+
+RHACS observes the processes running in containers, and collects this information to write policies.
+This information can also be used to create baseline policy configurations that can be updated by the user.
+
+This allows the user to quickly assess and address novel situations.
+
+=== Clean Up Blocking Policies
+
+The `No bash allowed` policy from lab 3 will block this lab, so you must delete it.
+
+.Procedure
+. Navigate to *Platform Configuration -> System Policies* and find the `No bash allowed` policy.
++
+[TIP]
+====
+On the *System Policies* page, type `bash` into the filter bar at the top.
+====
+
+. Select the policy name to open the side panel.
+. Click *Edit* and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* page.
+. Click the *ON* switch for runtime enforcement.
+. Click *Save*.
+
+
+=== Prevent Execution of Package Manager Binary
+
+Package managers like `apt` (Ubuntu), `apk` (Alpine), or `yum` (RedHat) are binary software components used to manage and update installed software on a Linux^(R)^ host system.
+They are used extensively to manage running virtual machines. But using a package manager to install or remove software on a running container violates the immutable principle of container operation.
+
+This policy demonstrates how RHACS detects and avoids a runtime violation, using Linux kernel instrumentation to detect the running process and OpenShift^(R)^ to terminate the pod for enforcement.
+
+Using OpenShift to enforce runtime policy is preferable to enforcing rules directly within containers or in the container engine, as it avoids a disconnect between the state that OpenShift is maintaining and the state in which the container is actually operating.
+Further, because a runtime policy may detect only part of an attacker's activity inside a container, removing the container avoids the attack.
+
+=== Enable Enforcement of Policy
+
+.Procedure
+. Navigate to *Platform Configuration -> System Policies* and find the `Ubuntu Package Manager Execution` policy.
++
+[TIP]
+====
+On the *System Policies* page, type `Ubuntu` into the filter bar at the top.
+====
+
+. Select the policy name to open the side panel.
+. Click *Edit* and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* page.
+. Click the *ON* switch for runtime enforcement.
+. Click *Save*.
+
+=== Test Policy
+
+In this section, you use `tmux` to watch OpenShift _events_ while running the test, so you can see how RHACS enforces the policy at runtime.
+
+.Procedure
+. On your student VM, start `tmux` with two panes:
++
+[source,sh]
+----
+tmux new-session \; split-window -h \; split-window -v \; attach
+----
++
+. Run a watch on OpenShift events in the first shell pane:
++
+[source,sh]
+----
+oc get events -w
+----
++
+. Type `Ctrl-b o` to switch to the next pane.
+. Run a temporary Ubuntu OS image using the `tmp-shell` application:
++
+[source,sh]
+----
+oc run tmp-shell --labels="app=tmp-shell" --rm -i --tty --image ubuntu:18.04 -- /bin/bash
+----
++
+.Sample Output
+[source,texinfo]
+----
+If you don't see a command prompt, try pressing enter.
+root@tmp-shell:/#
+----
++
+After the cluster pulls the image and starts the pod, expect to see a Linux command shell as shown.
+
+. Run the package manager in this shell:
++
+[source,sh]
+----
+
+root@tmp-shell-65c98c7766-66fpw:/# apt update
+----
++
+. Examine the output and expect to see that the package manager performs an update operation:
++
+.Sample Output
+[source,texinfo]
+----
+Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+Get:3 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [860 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+Get:7 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1484 kB]
+Get:8 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [21.1 kB]
+Get:9 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [2660 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [893 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3098 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2262 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [29.8 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [11.6 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [12.6 kB]
+97% [13 Packages store 0 B]
+Fetched 24.7 MB in 3s (7158 kB/s)
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+All packages are up to date.
+----
++
+. Examine the `oc get events` tmux pane, and note that it shows that RHACS detected the package manager invocation and deleted the pod:
++
+.Sample Output
+[source,texinfo,options="nowrap"]
+----
+0s          Normal    Scheduled              pod/tmp-shell   Successfully assigned tok-00-project/tmp-shell to ip-10-0-239-17.us-east-2.compute.internal
+0s          Normal    AddedInterface         pod/tmp-shell   Add eth0 [10.128.1.130/23] from openshift-sdn
+0s          Normal    Pulled                 pod/tmp-shell   Container image "ubuntu:18.04" already present on machine
+0s          Normal    Created                pod/tmp-shell   Created container tmp-shell
+0s          Normal    Started                pod/tmp-shell   Started container tmp-shell
+0s          Warning   StackRox enforcement   pod/tmp-shell   A pod (tmp-shell) violated StackRox policy "Ubuntu Package Manager Execution" and was killed
+0s          Normal    Killing                pod/tmp-shell   Stopping container tmp-shell
+----
++
+After about 30 seconds, you can see that the pod is deleted.
+
+. In your `tmux` shell pane, note that your shell session has terminated and that you are returned to the student VM command line:
++
+.Sample Output
+[source,texinfo,options="nowrap"]
+----
+root@tmp-shell:/#
+root@tmp-shell:/# Session ended, resume using 'oc attach tmp-shell -c tmp-shell -i -t' command when the pod is running
+No resources found
+[lab-user@bastion ~]$
+----
+
+== Report and Resolve Violations
+
+At this point, any attacker using a shell to install software is now disconnected from the environment.
+A complete record of the event is available on the *Violations* page.
+
+.Procedure
+. Navigate to the *Violations* page.
+. Find the violation labeled `tmp-shell` and select the `Ubuntu Package Manager Execution` policy.
+
+. Explore the list of the violation events:
++
+image::rhacs_runtime_violations_tmp-shell.png[RHACS run time Violations]
++
+If configured, each violation record is pushed to a Security Information and Event Management (SIEM) integration, and is available to be retrieved via the API.
+The forensic data shown in the UI is recorded, including the timestamp, process user IDs, process arguments, process ancestors, and enforcement action.
++
+For more information about integration with SIEM tools, see the RHACS help documentation on link:https://docs.openshift.com/acs/3.68/welcome/index.html#integrating-with-other-products[external tools^].
++
+After this issue is addressed--in this case by the RHACS product using the runtime enforcement action--you can remove it from the list by marking it as `Resolved`.
+
+. Hover over the violation in the list to see the resolution options:
++
+image::rhacs_runtime_violations_tmp-shell_resolved.png[RHACS Violation Resolved]
+
+== Summary
+
+In this lab, you learned some of the unique features of runtime policy enforcement.
+This includes process monitoring and pod deletion based on your specified criteria.

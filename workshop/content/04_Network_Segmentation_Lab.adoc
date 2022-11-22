@@ -1,0 +1,180 @@
+:labname: Network Segmentation
+
+:includedir:
+
+include::{includedir}../include/00_0_Lab_Header.adoc[]
+
+== {labname} Lab
+
+:numbered:
+
+== Introduction to {labname}
+
+Network Segmentation works by controlling how traffic flows among the parts.
+You may choose to stop the traffic in one part from reaching another, or limit the flow by traffic type, source, destination, and many other criteria.
+How you decide to segment your network is called a _segmentation_ policy.
+
+Segmentation improves cybersecurity by limiting how far an attack can spread.
+For example, segmentation keeps a malware outbreak in one section from affecting systems in another.
+
+Using Kubernetes network policies in OpenShift^(R)^, you can restrict open network paths for isolation and to prevent lateral movement by attackers.
+
+=== Kubernetes Network Policies
+
+A Kubernetes network policy is a specification of how groups of pods are allowed to communicate with each other and with other network endpoints.
+These network policies are configured as YAML files.
+However, it is often hard to identify, just by looking at these files alone, whether the applied network policies achieve the desired network topology.
+Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS) gathers the defined network policies from your orchestrator and provides functionality to make these policies easier to use.
+
+.Goals
+
+* Examine namespace and deployment details
+* Switch from the active view to the allowed connections view
+* Use the network policy simulator
+* Fix PCI compliance in the microservices demo application
+
+[[labexercises]]
+
+
+== Explore Network Graph
+
+=== Navigate to Network Graph
+
+The network graph combines a flow diagram, a firewall diagram, and a firewall rule builder in one view.
+
+.Procedure
+. From the left, navigate to the *Network Graph* tab:
++
+image::rhacs_network_graph.png[RHACS Network Graph]
++
+* In the upper left, there is a cluster menu with `production` selected.
+* You can easily navigate between any of the clusters connected to RHACS.
+* The default view, *Active*, shows you actual traffic for the past hour between the deployments in the namespaces.
+* You can change the time frame (in the upper right menu) and the legend (at the bottom left).
+
+=== Compare Flow Views
+
+The *Flows* selection provides three perspectives on network traffic--active, allowed, and all:
+
+* *Active*: Provides a flow diagram of actual network activity over the past timeframe.
+
+* *Allowed*: Similar to a firewall diagram, shows the rules in place.
+
+* *All*: Allows you to compare and contrast how the rules are implemented in real time.
+
+The *Allowed* setting helps you to quickly see the difference between a configuration with selected firewall rules enforced and a wide-open view as shown with the *All* selection.
+
+.Procedure
+. In the *Flows* box at upper left, click *Allowed*.
+* The red dots indicate an unrestricted deployment (an open network), which is unfortunately the default in OpenShift.
+* The dashed lines indicate a namespace with no restrictions on ingress or egress.
+Again, this is a default that does not promote good security and conflicts with best practices required under several compliance standards.
+
+=== Examine Namespace and Deployment Details
+
+In the complete network graph, deployment names are not visible.
+Details of their flows and baselines are available when you zoom in on them.
+You can also view some details of network flows by hovering over the connecting lines.
+
+.Procedure
+. Scroll or pinch to zoom in on the `payments` namespace.
+As you zoom in, the namespace boxes show the individual deployment names.
+. Click the dot representing the `visa-processor` deployment.
+* Selecting a deployment brings up details of the types of traffic observed, including source or destination and ports:
++
+image::rhacs_deployment_flows.png[RHACS Deployment Details]
++
+NOTE: Your *Anomalous Flows* list might be different
++
+* Here you can create a baseline for the active flows and trigger alerts for anomalous flows.
+* You can also switch to the *Network Policies* tab to investigate and download them.
+* The *Details* tab has general information about the deployment.
+. Click away from the box to close it and see the whole network graph.
+
+== Use Network Policy Simulator
+
+OpenShift defaults to no egress or ingress restrictions on namespaces.
+This may be useful for proof of concepts, but it conflicts with best practices required under several compliance standards.
+The network policy simulator is designed to help solve this problem quickly and accurately by using the history of observed traffic to build firewall rules.
+
+.Procedure
+. At the top right, click *Network Policy Simulator*.
+. Click *Generate and simulate network policies*:
++
+image::rhacs_netpol_simulator.png[RHACS Network Policy Simulator]
+
+The firewall rules you are generating are not proprietary rules, but OpenShift-native NetworkPolicy objects.
+This feature, more than any other, illustrates the philosophy that RHACS represents: security through platform-native features with fixes supplied as configuration for OpenShift.
+
+By implementing stronger security through declarative statements, this avoids the _anti-pattern_ of having configuration rules in a separate system. This code becomes part of your application, ensuring the consistency of a _single source of truth_ for your codebase.
+This approach also reduces operational risk because there is no proprietary firewall in your cluster or in your pods that could fail, causing an application outage.
+
+RHACS leverages the firewall that is already in your OpenShift cluster.
+Throughout the product you see this approach: _fix it in the code_; _leverage the platform_. In this lab, you explore those policies through examples of policy violations.
+
+== Fix PCI Compliance in Microservices Demo Application
+
+[quote, PCI-DSS website, https://www.pcisecuritystandards.org]
+The best way to maximize security of cardholder data is to continuously monitor and enforce the use of controls specified in the PCI Data Security Standard.
+
+RHACS continuously monitors and enforces policies and is aware of PCI-DSS compliance standards.
+
+In this section, you bring the `microservices-demo` application closer to compliance with RHACS.
+
+.Procedure
+. Zoom in to the `microservices-demo` namespace, select one of the deployments, and examine the deployment details (on the right side):
++
+image::rhacs_microservices_demo_namespace.png[Network graph for microservices-demo namespace]
++
+NOTE: These deployment dots are [red]#red# because they have no Network Policies associated with them yet.
+
+. From the left, navigate to the *Compliance* page.
+. In the upper right, click *SCAN ENVIRONMENT*:
++
+image::rhacs_microservices_compliance.png[Overall environment compliance]
+
+. On the top of the *Compliance* page, click *Namespaces* to see a report of compliance scores by namespace.
+. At the top, use the filter bar to restrict the view to the `Namespace: microservices-demo`.
+
+. Examine the results to see that the `microservices-demo` namespace has approximately 64% compliance for PCI, but with some significant gaps, especially on Control section 1, which addresses network isolation:
++
+image::rhacs_microservices_pci_1.png[Compliance for Online Boutique shop microservices demo before network policy changes]
+
+. After you note the current compliance level, return to the *Network Graph* page.
++
+Next, you generate some network policies to improve the compliance score on the PCI benchmark.
+
+. At the top, use the filter bar to narrow the view to `Namespace: microservices-demo`.
++
+The network graph changes focus to only the `microservices-demo` namespace.
+
+. Click *Network Policy Simulator* and then *Generate and simulate network policies*:
++
+image::rhacs_microservices_netpol.png[Generated Kubernetes Network Policies for Online Boutique]
+
+. Click *Apply Network Policies*.
+. Refresh and expect to see that the deployments in the `microservices-demo` namespace are [blue]#blue#, indicating that they have network policies applied.
++
+The PCI compliance score increases for the `microservices-demo` namespace, because those network policies meet the requirements for isolation of retail applications that handle cardholder data.
+
+. Navigate back to *Compliance* and click *Scan Environment*.
++
+After the compliance scan completes, you can see that the PCI score has increased.
++
+. Enter `Namespace: microservices-demo` into the filter bar to restrict the view to the `microservices-demo` namespace.
+. Examine the results to see that the `microservices-demo` namespace has an approximately 79% compliance for PCI:
++
+image::rhacs_microservices_pci_2.png[Compliance for Online Boutique Shop Microservices demo after network policy changes]
+
+== Summary
+
+RHACS makes it easy to analyze the network security of your OpenShift clusters and helps you take advantage of OpenShift's built-in firewall protections.
+
+To support network policy enforcement, you used Red Hat Advanced Cluster Security for Kubernetes to do the following:
+
+* Examine the network and individual deployments in the network graph
+* Create network policies in the network policy simulator
+* Apply network policies with the generator
+* Bring deployments closer to PCI DSS compliance by implementing appropriate network policies
+
+In the next lab, you take a look at what those policies look like, with examples of policy violations.

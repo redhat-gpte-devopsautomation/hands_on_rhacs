@@ -1,0 +1,33 @@
+QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
+HORHACS|HORHACS0101|1|Which of the following is NOT a component of RHACS?|||Central|||0|0|||
+HORHACS|HORHACS0101|1|Which of the following is NOT a component of RHACS?|||Sensor|||0|0|||
+HORHACS|HORHACS0101|1|Which of the following is NOT a component of RHACS?|||Collector|||0|0|||
+HORHACS|HORHACS0101|1|Which of the following is NOT a component of RHACS?|||Registry|||1|100|||
+HORHACS|HORHACS0102|5|One RHACS Central component can manage the security of many OpenShift clusters.|||TRUE|||1|100|||
+HORHACS|HORHACS0102|5|One RHACS Central component can manage the security of many OpenShift clusters.|||FALSE|||0|0|||
+HORHACS|HORHACS0103|1|Which of the following is NOT a feature of the Vulnerability Management Dashboard?|||List images in order of risk|||0|0|||
+HORHACS|HORHACS0103|1|Which of the following is NOT a feature of the Vulnerability Management Dashboard?|||Implement fixes to vulnerabilities|||1|100|||
+HORHACS|HORHACS0103|1|Which of the following is NOT a feature of the Vulnerability Management Dashboard?|||Manage the "Risk Acceptance Workflow"|||0|0|||
+HORHACS|HORHACS0103|1|Which of the following is NOT a feature of the Vulnerability Management Dashboard?|||Discover related entities that might share a vulnerability|||0|0|||
+HORHACS|HORHACS0104|5|The Risk Management feature prioritizes vulnerabilities to be addressed.|||TRUE|||1|100|||
+HORHACS|HORHACS0104|5|The Risk Management feature prioritizes vulnerabilities to be addressed.|||FALSE|||0|0|||
+HORHACS|HORHACS0105|1|Which of the following is NOT a feature of Risk Management?|||Create risk reports|||1|100|||
+HORHACS|HORHACS0105|1|Which of the following is NOT a feature of Risk Management?|||Track and baseline processes in containers|||0|0|||
+HORHACS|HORHACS0105|1|Which of the following is NOT a feature of Risk Management?|||Display risk justifications|||0|0|||
+HORHACS|HORHACS0105|1|Which of the following is NOT a feature of Risk Management?|||Assess RBAC privilege escalation|||0|0|||
+HORHACS|HORHACS0106|5|Network segmentation relies on the Kubernetes network policies and does not implement its own firewall.|||TRUE|||1|100|||
+HORHACS|HORHACS0106|5|Network segmentation relies on the Kubernetes network policies and does not implement its own firewall.|||FALSE|||0|0|||
+HORHACS|HORHACS0107|5|The Violations features provide actionable information to developers and administrators.|||TRUE|||1|100|||
+HORHACS|HORHACS0107|5|The Violations features provide actionable information to developers and administrators.|||FALSE|||0|0|||
+HORHACS|HORHACS0108|5|RHACS has multiple policy engines to implement the build, deploy, and run phases.|||TRUE|||0|0|||
+HORHACS|HORHACS0108|5|RHACS has multiple policy engines to implement the build, deploy, and run phases.|||FALSE|||1|100|||
+HORHACS|HORHACS0109|5|Policies can be enabled generally, but not enforce all phases.|||TRUE|||1|100|||
+HORHACS|HORHACS0109|5|Policies can be enabled generally, but not enforce all phases.|||FALSE|||0|0|||
+HORHACS|HORHACS0110|5|Compliance scores indicate the status of policies for a particular standard.|||TRUE|||1|100|||
+HORHACS|HORHACS0110|5|Compliance scores indicate the status of policies for a particular standard.|||FALSE|||0|0|||
+HORHACS|HORHACS0111|5|Build-time policy enforcement is very effective in preventing vulnerabilities from reaching production.|||TRUE|||1|100|||
+HORHACS|HORHACS0111|5|Build-time policy enforcement is very effective in preventing vulnerabilities from reaching production.|||FALSE|||0|0|||
+HORHACS|HORHACS0112|5|Deploy-time policy enforcement is uniquely effective at preventing misuse of environment variables.|||TRUE|||1|100|||
+HORHACS|HORHACS0112|5|Deploy-time policy enforcement is uniquely effective at preventing misuse of environment variables.|||FALSE|||0|0|||
+HORHACS|HORHACS0113|5|Run time policies can use Linux kernel instrumentation to detect running processes, and use OpenShift to terminate the pod for enforcement.|||TRUE|||1|100|||
+HORHACS|HORHACS0113|5|Run time policies can use Linux kernel instrumentation to detect running processes, and use OpenShift to terminate the pod for enforcement.|||FALSE|||0|0|||
