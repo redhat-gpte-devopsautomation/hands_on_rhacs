@@ -1,0 +1,16 @@
+---
+name: GitOps with RedHat Ansible Tower
+modules:
+  activate:
+    - 01_introduction
+    - 02_overview 
+    - 04_exercise_1_1_vscode_webui
+    - 04_exercise_1_2_tower_webui
+    - 04_exercise_1_3_gitlab_webui
+    - 04_exercise_2_1_gitlab_pat
+    - 04_exercise_2_2_storing_pat_in_ansible_tower
+    - 04_exercise_3_1_webhook_for_push_event
+    - 04_exercise_3_2_verify_push_event
+    - 04_exercise_4_1_webhook_for_merge_event
+    - 04_exercise_4_2_verify_merge_event
+    - 05_grade_and_solve

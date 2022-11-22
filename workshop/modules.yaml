@@ -1,0 +1,37 @@
+---
+modules:
+  01_introduction:
+    name: GitOps with RedHat Ansible Tower
+    exit_sign: Overview
+  02_overview:
+    name: Overview
+    exit_sign: Exercise 1.1
+  04_exercise_1_1_vscode_webui:
+    name: Exercise 1.1 - VScode WebUI
+    exit_sign: Exercise 1.2
+  04_exercise_1_2_tower_webui:
+    name: Exercise 1.2 - Ansible Tower WebUI
+    exit_sign: Exercise 1.3
+  04_exercise_1_3_gitlab_webui:
+    name: Exercise 1.3 - Gitlab WebUI
+    exit_sign: Exercise 2.1
+  04_exercise_2_1_gitlab_pat:
+    name: Exercise 2.1 - Gitlab PAT
+    exit_sign: Exercise 2.2
+  04_exercise_2_2_storing_pat_in_ansible_tower: 
+    name: Exercise 2.2 - Storing PAT in Ansible Tower
+    exit_sign: Exercise 3.1
+  04_exercise_3_1_webhook_for_push_event:
+    name: Exercise 3.1 - Webhook For Push Event
+    exit_sign: Exercise 3.2
+  04_exercise_3_2_verify_push_event:
+    name: Exercise 3.2 - Verify Push Event
+    exit_sign: Exercise 4.1
+  04_exercise_4_1_webhook_for_merge_event:
+    name: Exercise 4.1 - Webhook For Merge Event
+    exit_sign: Exercise 4.2
+  04_exercise_4_2_verify_merge_event:
+    name: Exercise 4.2 - Verify Merge Event
+    exit_sign: Grade
+  05_grade_and_solve:
+    name: Grade And Solve

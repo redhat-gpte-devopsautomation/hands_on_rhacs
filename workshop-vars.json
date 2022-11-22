@@ -1,0 +1,14 @@
+{ 
+"guid": "gitOps1",
+"subdomain_base_suffix": "red.ops.example.com", 
+"gitlab_url": "https://utility.red.ops.example.com",
+"gitlab_username": "devops",
+"gitlab_password": "redhat123",
+"tower_url": "https://tower.example.com",
+"tower_admin_user": "devops",
+"tower_admin_password": "redhat123",
+"ssh_command": "ssh pnm@control.red.ops.example.com",
+"ssh_password": "redhat123",
+"vscode_ui_url": "http://control.red.ops.example.com",
+"vscode_ui_password": "redhat123"
+}

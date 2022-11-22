@@ -1,0 +1,98 @@
+:labname: Compliance
+
+:includedir:
+
+include::{includedir}../include/00_0_Lab_Header.adoc[]
+
+== {labname} Lab
+
+:numbered:
+
+== Introduction to {labname}
+
+The compliance reports of Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS) gather information for configuration, industry standards, and best practices for container-based workloads running in OpenShift^(R)^.
+You are already familiar with some compliance features because they are tied to controls that you saw in the *Risk* view--on the *Network Graph* and in *Policies* pages.
+Each standard represents a series of controls, with guidance provided by Red Hat on the specific OpenShift configuration or DevOps process required to meet that control.
+
+.Goals
+
+* Understand compliance as it relates to policies and standards
+* Enable policy enforcement to bring systems into standards compliance
+* Export evidence of compliance for analysts and regulators
+
+[[labexercises]]
+
+== Manage Standards Details
+
+=== Explore Compliance
+
+.Procedure
+. From the left navigation menu, select the *Compliance* tab:
++
+image::rhacs_compliance_overview.png[RHACS Compliance Overview]
++
+. In the upper left of the *Passing Standards Across Clusters* graph, click *PCI* or the *PCI* percentage bar.
+. Select `Control 1.1.4, "Requirements for a firewall..."`.
++
+In this example, PCI-DSS has controls that refer to firewalls and the DMZ (not really relevant to cloud-native).
+In OpenShift, that requirement and other isolation requirements are met by network policies.
+The low (approximately `19%`) compliance score shown in this image indicates that only about one-fifth of your deployments have correctly defined policies.
++
+. From the left navigation menu, click the *Compliance* tab.
+. Select `NIST SP 800-190`.
+. Select `Control 4.1.1, "Image vulnerabilities..."`.
++
+If the control's compliance is `100%`, the `Fixable Severity at least Important` policy is enabled and set to enforcing.
+To see it change to `0%`, do the following activity and rather than setting enforcement to *ON*, set it to *OFF*.
+When you return to look at the NIST policy and its Control 4.1.1, it will be at 0%.
++
+NOTE: The `NIST 800-190` application containers security standard requires a pipeline-based build approach to mitigating vulnerabilities in images.
+
+. Toggle enforcement of the `Fixable Severity at least Important` policy by finding the policy and editing.
+.. From the left navigation menu, click *Platform Configuration -> System Policies*.
+.. Type `Fixable Severity` into the filter bar to find the policy, then click the full name `Fixable Severity at least important`, then click away from the filter bar.
+. Click the `Fixable Severity` item from the list.
+.. Click *Edit* on the *Policy Details* panel and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* panel.
+.. Toggle the *Enforcement Behavior* to *ON* for both *Build* and *Deploy*.
++
+NOTE: If NIST SP 800-190 Controll 4.1.1 was already showing 100% compliance, then turn these enforcements off to demonstrate the Control out of compliance at 0%.
+.. Click *Save*.
+. Return to the *Compliance* view and select the `NIST SP 800-190` standard.
+. Examine the results and note the value of the `Control 4.1.1` compliance percentage.
+. Click *Scan*, and watch as the compliance percentage changes.
++
+Because you changed enforcement to the `Fixable Severity at least Important` policy, you now meet the requirement dictated by `Control 4.1.1`, and the `0%` score changes to `100%` because you now have the control in place to prevent known vulnerabilities from being deployed.
++
+WARNING: As of recent releases of RHACS, the `Fixable CVSS >= 7` policy was _deactivated by default_, and replaced with `Fixable Severity at least Important`.
+The name `CVSS >= 7` implies a value of `Important`.
+Red Hat is now migrating to a method of expressing policy independent of single measures, adopting a more general and actionable language.
+
+=== Examine Namespace Compliance
+
+.Procedure
+. On the left navigation menu, click the *Compliance* tab.
+. In the top toolbar of the *Compliance* page, click *Namespaces*.
++
+It is valuable to break this data down by clusters, namespaces, and deployments.
+Namespaces are particularly useful because they can show where the gaps in compliance are application-by-application or team-by-team.
+
+=== Export Evidence
+
+.Procedure
+. On the left navigation menu, click the *Compliance* tab.
++
+A final note about compliance--you are only as compliant as you can prove!
++
+. In the upper right, click *Export* to show the *Download Evidence as CSV* option:
++
+image::rhacs_compliance_download.png[RHACS Compliance Report Download]
++
+This is the evidence export that your auditors may want to see for proof that the mandated security controls are actually in place.
+
+== Summary
+
+In this lab, you explored how standards compliance is affected by policy enforcement and how to implement policy to impact compliance levels.
+
+You also exported reports of standards compliance.
+
+In the next lab, you complete activities that test policies at build time, deploy time, and runtime.
