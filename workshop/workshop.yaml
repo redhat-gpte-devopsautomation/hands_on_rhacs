@@ -1,5 +1,5 @@
 ---
-name: GitOps with RedHat Ansible Tower
+name: Hands-On with Red Hat Advanced Cluster Security for Kubernetes
 modules:
   activate:
     - 01_Course_Introduction_Lab
