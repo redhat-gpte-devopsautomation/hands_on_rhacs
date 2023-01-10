@@ -1,9 +1,5 @@
 :labname: Compliance
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -29,7 +25,7 @@ Each standard represents a series of controls, with guidance provided by Red Hat
 .Procedure
 . From the left navigation menu, select the *Compliance* tab:
 +
-image::rhacs_compliance_overview.png[RHACS Compliance Overview]
+image::images/rhacs_compliance_overview.png[RHACS Compliance Overview]
 +
 . In the upper left of the *Passing Standards Across Clusters* graph, click *PCI* or the *PCI* percentage bar.
 . Select `Control 1.1.4, "Requirements for a firewall..."`.
@@ -85,7 +81,7 @@ A final note about compliance--you are only as compliant as you can prove!
 +
 . In the upper right, click *Export* to show the *Download Evidence as CSV* option:
 +
-image::rhacs_compliance_download.png[RHACS Compliance Report Download]
+image::images/rhacs_compliance_download.png[RHACS Compliance Report Download]
 +
 This is the evidence export that your auditors may want to see for proof that the mandated security controls are actually in place.
 

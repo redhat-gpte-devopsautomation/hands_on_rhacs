@@ -1,9 +1,5 @@
 :labname: Violations
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -40,7 +36,7 @@ You can use the default out-of-the-box security policies or your own custom poli
 .Procedure
 . From the left navigation menu, select the *Violations* tab:
 +
-image::rhacs_violations_overview.png[RHACS Violations Overview]
+image::images/rhacs_violations_overview.png[RHACS Violations Overview]
 
 === Examine Build and Deployment Time Violations
 
@@ -58,7 +54,7 @@ They are the events captured during build and deploy time.
 . Click the *Policy* tab:
 +
 // image::rhacs_violations_deployment_events.png[RHACS Violations - Deploy Time]
-image::rhacs_violations_policy.png[RHACS Violations - Policy]
+image::images/rhacs_violations_policy.png[RHACS Violations - Policy]
 +
 The *Policy Details* page includes a detailed description, rationale, and remediation for the violation.
 Note that *Lifecycle Stage* is set to `Build, Deploy`.
@@ -74,13 +70,13 @@ In this case, for your lab, there is no enforcement of the action, just a notifi
 . From the left navigation menu, select the *Violations* tab.
 . Create a `Policy: Ubuntu Package Manager Execution` filter to find an example runtime policy:
 +
-image::rhacs_violations_runtime_ubuntu.png[RHACS Violations - Runtime]
+image::images/rhacs_violations_runtime_ubuntu.png[RHACS Violations - Runtime]
 +
 . Under *Entity*, select the violation with the `visa-processor in "production/payments"`, and expect the *Violation Detail* page to appear.
 . Examine the _runtime_ *Violation events* to see that they look considerably different from the _deploy-time_ events.
 The _who, what, when, where, and why_ are all present:
 +
-image::rhacs_violations_runtime_violation_events.png[RHACS Violation Events - Runtime]
+image::images/rhacs_violations_runtime_violation_events.png[RHACS Violation Events - Runtime]
 
 === Use Policy Summary
 
@@ -96,7 +92,7 @@ In this section, you lean how to remove the package manager--using the simple Do
 . In the *Violation Details* view, click the *Policy* tab.
 . Highlight the text of the Dockerfile in the `Remediation` section of the policy:
 +
-image::rhacs_violations_remediation.png[RHACS Violation - Remediation]
+image::images/rhacs_violations_remediation.png[RHACS Violation - Remediation]
 
 You are using runtime incidents as learning opportunities to improve security going forward by constraining how your containers can act.
 

@@ -1,9 +1,5 @@
 :labname: Build-Time Policy Enforcement
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -38,7 +34,7 @@ In this section, you configure the proper policies for enforcement, test them on
 . From the left navigation menu, select *Platform Configuration -> System Policies*.
 . Scroll down to `Fixable CVSS >= 7` (`rhacs_fix_image_vuln_policy`):
 +
-image::rhacs_fix_image_vuln_policy.png[RHACS Policy - Configure]
+image::images/rhacs_fix_image_vuln_policy.png[RHACS Policy - Configure]
 +
 TIP: You can find this policy quickly by entering `fixable` in the filter bar at the top of the page.
 +
@@ -118,7 +114,7 @@ When incorporated into a CI/CD build pipeline, this failure code stops the pipel
 .Procedure
 . Navigate to your OpenShift web console, and on the left navigation menu select *Pipelines -> Pipelines*:
 +
-image::rhacs_pipeline_pipelines.png[RHACS - OpenShift Console Pipelines]
+image::images/rhacs_pipeline_pipelines.png[RHACS - OpenShift Console Pipelines]
 +
 NOTE: You can find your OpenShift Console URL and credentials in your Red Hat provisioning email message.
 
@@ -126,11 +122,11 @@ NOTE: You can find your OpenShift Console URL and credentials in your Red Hat pr
 +
 . From this *Pipeline details* page, use the *Actions* menu to select *Start*:
 +
-image::rhacs_pipeline_start.png[RHACS Pipeline Start]
+image::images/rhacs_pipeline_start.png[RHACS Pipeline Start]
 +
 . In the window that appears, paste the container image URL (`docker.io/vulnerables/cve-2017-7494`) and click *Start*:
 +
-image::rhacs_pipeline_failed_docker.png[RHACS PipelineRun TaskRun failure]
+image::images/rhacs_pipeline_failed_docker.png[RHACS PipelineRun TaskRun failure]
 +
 This PipelineRun kicked off a TaskRun to run the `image-check` task.
 It failed the same way it failed on the `stackrox` command line earlier.
@@ -271,7 +267,7 @@ In a complete pipeline integration, these manifests are not delivered by hand as
 .Procedure
 . Navigate to your OpenShift web console, and select *Pipelines -> Pipelines* from the left navigation menu:
 +
-image::rhacs_pipeline_pipelines.png[RHACS - OpenShift Console Pipelines]
+image::images/rhacs_pipeline_pipelines.png[RHACS - OpenShift Console Pipelines]
 +
 NOTE: You can find your OpenShift Console URL and credentials in your Red Hat provisioning email message.
 
@@ -282,7 +278,7 @@ Do not confuse it with the prior pipeline `rox-pipeline`, which only verifies im
 
 . From this *Pipeline details* page, use the *Actions* menu to select *Start*:
 +
-image::rhacs_pipeline_start_check_deploy.png[RHACS Pipeline Start Check Deploy]
+image::images/rhacs_pipeline_start_check_deploy.png[RHACS Pipeline Start Check Deploy]
 
 . In the window that appears, provide three required parameters:
 .. In the *Parameters yaml* field, paste the following data, which is the base64-encoded representation of the manifests that you created earlier:
@@ -307,7 +303,7 @@ NOTE: This PipelineRun only generated a warning. This is the same way you receiv
 
 . Click the *Logs* tab to see the full output of the `deploy-check` failure:
 +
-image::rhacs_pipeline_deployment_warning_log.png[RHACS Deployment Check Warning]
+image::images/rhacs_pipeline_deployment_warning_log.png[RHACS Deployment Check Warning]
 
 ////
 If you'd like to investigate the `write-yaml` Task, it's implemented like this:

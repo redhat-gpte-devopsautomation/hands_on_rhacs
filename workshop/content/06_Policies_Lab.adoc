@@ -1,9 +1,5 @@
 :labname: Policies
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -49,12 +45,12 @@ In this section, you open a *Policy Detail* panel to learn more about a policy.
 .Procedure
 . From the left navigation menu, select the *Platform Configuration* tab and then *System Policies*:
 +
-image::rhacs_policy_overview.png[RHACS Policy Overview]
+image::images/rhacs_policy_overview.png[RHACS Policy Overview]
 
 . Select the `Alpine Linux Package Manager (apk) in Image` policy.
 . On the right, examine the policy details:
 +
-image::rhacs_policy_specific_policy.png[RHACS Policy Specific]
+image::images/rhacs_policy_specific_policy.png[RHACS Policy Specific]
 
 This is what an RHACS policy looks like. The descriptive details under *Policy Details*, *Rationale*, and *Remediation* provide the DevOps team with context about why this issue is important for security and, more importantly, what to do about it.
 This policy violation notes that including package managers in containers is a security risk.
@@ -106,14 +102,14 @@ image::rhacs_policy_categories_new.png[RHACS Policy Categories]
 . Return to the *Dashboard* and scroll down to find the *INVESTIGATION* graph.
 . Because you set the *Severity* to `Low`, you will see a graph of low risk violations.
 +
-image::rhacs_policy_category_graph.png[RHACS Policy Category Graph]
+image::images/rhacs_policy_category_graph.png[RHACS Policy Category Graph]
 +
 NOTE: As long as there are active violations, the new category appears in the dashboard within a few minutes.
 As you add the `Investigation` category to other policies, those violations are detailed on the dashboard in this category.
 
 . Click the `Low` link on the graph to display the violations that match this category:
 +
-image::rhacs_policy_category_graph_list.png[RHACS Policy Category Graph List]
+image::images/rhacs_policy_category_graph_list.png[RHACS Policy Category Graph List]
 +
 
 Also of convenience, the filters in the *Violations* page now populate your custom categories.
@@ -123,7 +119,7 @@ Also of convenience, the filters in the *Violations* page now populate your cust
 You will see a list of categories.
 . Begin typing `Investigation` and you will see it autocomplete, as in the image.
 +
-image::rhacs_policy_categories_filter_investigation.png[RHACS Policy Filter includes Category Investigation]
+image::images/rhacs_policy_categories_filter_investigation.png[RHACS Policy Filter includes Category Investigation]
 
 == Summary
 

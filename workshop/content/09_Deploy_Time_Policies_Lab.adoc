@@ -1,9 +1,5 @@
 :labname: Deploy-Time Policy Enforcement
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -39,8 +35,8 @@ Using admission controller enforcement for image-based scanning requires enablin
 .Procedure
 . Verify that admission controller and image scanning are set up properly by navigating to *Platform Configuration -> Clusters -> Production* and verifying that the following settings are enabled:
 +
-image::rhacs_deploytime_admission_controler.png[RHACS Admission Controller Listen and Enforce Enabled]
-image::rhacs_deploytime_image_scanner.png[RHACS Image Scanning Enabled]
+image::images/rhacs_deploytime_admission_controler.png[RHACS Admission Controller Listen and Enforce Enabled]
+image::images/rhacs_deploytime_image_scanner.png[RHACS Image Scanning Enabled]
 +
 CAUTION: Before configuring this lab, be aware that enforcing this policy blocks all deployments that use images for which RHACS Central cannot retrieve results.
 For more information, review the RHACS help for Scanner and Image Registries.

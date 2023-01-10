@@ -1,9 +1,5 @@
 :labname: Network Segmentation
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -45,7 +41,7 @@ The network graph combines a flow diagram, a firewall diagram, and a firewall ru
 .Procedure
 . From the left, navigate to the *Network Graph* tab:
 +
-image::rhacs_network_graph.png[RHACS Network Graph]
+image::images/rhacs_network_graph.png[RHACS Network Graph]
 +
 * In the upper left, there is a cluster menu with `production` selected.
 * You can easily navigate between any of the clusters connected to RHACS.
@@ -82,7 +78,7 @@ As you zoom in, the namespace boxes show the individual deployment names.
 . Click the dot representing the `visa-processor` deployment.
 * Selecting a deployment brings up details of the types of traffic observed, including source or destination and ports:
 +
-image::rhacs_deployment_flows.png[RHACS Deployment Details]
+image::images/rhacs_deployment_flows.png[RHACS Deployment Details]
 +
 NOTE: Your *Anomalous Flows* list might be different
 +
@@ -101,7 +97,7 @@ The network policy simulator is designed to help solve this problem quickly and 
 . At the top right, click *Network Policy Simulator*.
 . Click *Generate and simulate network policies*:
 +
-image::rhacs_netpol_simulator.png[RHACS Network Policy Simulator]
+image::images/rhacs_netpol_simulator.png[RHACS Network Policy Simulator]
 
 The firewall rules you are generating are not proprietary rules, but OpenShift-native NetworkPolicy objects.
 This feature, more than any other, illustrates the philosophy that RHACS represents: security through platform-native features with fixes supplied as configuration for OpenShift.
@@ -124,21 +120,21 @@ In this section, you bring the `microservices-demo` application closer to compli
 .Procedure
 . Zoom in to the `microservices-demo` namespace, select one of the deployments, and examine the deployment details (on the right side):
 +
-image::rhacs_microservices_demo_namespace.png[Network graph for microservices-demo namespace]
+image::images/rhacs_microservices_demo_namespace.png[Network graph for microservices-demo namespace]
 +
 NOTE: These deployment dots are [red]#red# because they have no Network Policies associated with them yet.
 
 . From the left, navigate to the *Compliance* page.
 . In the upper right, click *SCAN ENVIRONMENT*:
 +
-image::rhacs_microservices_compliance.png[Overall environment compliance]
+image::images/rhacs_microservices_compliance.png[Overall environment compliance]
 
 . On the top of the *Compliance* page, click *Namespaces* to see a report of compliance scores by namespace.
 . At the top, use the filter bar to restrict the view to the `Namespace: microservices-demo`.
 
 . Examine the results to see that the `microservices-demo` namespace has approximately 64% compliance for PCI, but with some significant gaps, especially on Control section 1, which addresses network isolation:
 +
-image::rhacs_microservices_pci_1.png[Compliance for Online Boutique shop microservices demo before network policy changes]
+image::images/rhacs_microservices_pci_1.png[Compliance for Online Boutique shop microservices demo before network policy changes]
 
 . After you note the current compliance level, return to the *Network Graph* page.
 +
@@ -150,7 +146,7 @@ The network graph changes focus to only the `microservices-demo` namespace.
 
 . Click *Network Policy Simulator* and then *Generate and simulate network policies*:
 +
-image::rhacs_microservices_netpol.png[Generated Kubernetes Network Policies for Online Boutique]
+image::images/rhacs_microservices_netpol.png[Generated Kubernetes Network Policies for Online Boutique]
 
 . Click *Apply Network Policies*.
 . Refresh and expect to see that the deployments in the `microservices-demo` namespace are [blue]#blue#, indicating that they have network policies applied.
@@ -164,7 +160,7 @@ After the compliance scan completes, you can see that the PCI score has increase
 . Enter `Namespace: microservices-demo` into the filter bar to restrict the view to the `microservices-demo` namespace.
 . Examine the results to see that the `microservices-demo` namespace has an approximately 79% compliance for PCI:
 +
-image::rhacs_microservices_pci_2.png[Compliance for Online Boutique Shop Microservices demo after network policy changes]
+image::images/rhacs_microservices_pci_2.png[Compliance for Online Boutique Shop Microservices demo after network policy changes]
 
 == Summary
 

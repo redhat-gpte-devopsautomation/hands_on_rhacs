@@ -1,9 +1,5 @@
 :labname: Runtime Policy Enforcement
 
-:includedir:
-
-include::{includedir}../include/00_0_Lab_Header.adoc[]
-
 == {labname} Lab
 
 :numbered:
@@ -183,7 +179,7 @@ A complete record of the event is available on the *Violations* page.
 
 . Explore the list of the violation events:
 +
-image::rhacs_runtime_violations_tmp-shell.png[RHACS run time Violations]
+image::images/rhacs_runtime_violations_tmp-shell.png[RHACS run time Violations]
 +
 If configured, each violation record is pushed to a Security Information and Event Management (SIEM) integration, and is available to be retrieved via the API.
 The forensic data shown in the UI is recorded, including the timestamp, process user IDs, process arguments, process ancestors, and enforcement action.
@@ -194,7 +190,7 @@ After this issue is addressed--in this case by the RHACS product using the runti
 
 . Hover over the violation in the list to see the resolution options:
 +
-image::rhacs_runtime_violations_tmp-shell_resolved.png[RHACS Violation Resolved]
+image::images/rhacs_runtime_violations_tmp-shell_resolved.png[RHACS Violation Resolved]
 
 == Summary
 
