@@ -61,33 +61,17 @@ A Linux student VM has been provisioned for you with the necessary command line 
 
 == Provision Lab Environment
 
-In this section, you provision the lab environment to provide access to the components required to perform the labs.
+It is assumed that the lab environment has been provisioned by you already.
 The lab environment is a cloud-based environment, so that you can access it over the Internet from anywhere.
 Red Hat has made efforts to provide a lab environment that is sufficiently powered to meet the lab's needs.
 Feel free to use this environment for your own experiments with Red Hat Advanced Cluster Security.
 
 NOTE: The environment automatically shuts down after approximately four hours of runtime, so try to finish this course in one sitting.
-If necessary you may extend the runtime of this environment through the link:https://labs.opentlc.com/[OPENTLC lab portal^].
+If necessary you may extend the runtime of this environment through the link:https://demo.redhat.com/[Red Hat Demo Platform^].
 
 
-=== Deploy Environment
+Read the email carefully and specifically note the following:
 
-In this section, you deploy the environment for this course.
-
-.Procedure
-. Go to the {opentlc_portal} and use your OPENTLC credentials to log in.
-. Navigate to *Services -> Catalogs -> All Services -> {opentlc_catalog_name}*.
-. On the left, select *{opentlc_catalog_item_name1}*.
-. On the right, click *Order*.
-. On the bottom right, click *Submit*.
-+
-[IMPORTANT]
-Do not select *App Control -> Start* after ordering the environment.
-Selecting *Start* may corrupt the lab environment or cause other complications.
-
-* After a few minutes, expect to receive an email with instructions on how to connect to the environment.
-
-. Read the email carefully and specifically note the following:
 * The URL for the RHACS portal and the necessary credentials
 * The URL for the OpenShift Container Platform web console and the necessary credentials
 * The hostname for your student VM environment and instructions for connecting to it via SSH
@@ -98,12 +82,10 @@ To conserve resources, the lab environment shuts down automatically after four h
 This section provides the steps to restart it.
 
 .Procedure
-. Go to the {opentlc_portal} and use your OPENTLC credentials to log in.
-. Navigate to *Services -> My Services* (this is the screen shown right after logging in).
-. In the list of your services, select your lab environment.
-. Select *App Control -> Start* to start your lab environment.
-. Select *Yes* at the *Are you sure?* prompt.
-. On the bottom right, click *Submit*.
+. Go to the Red Hat Demo portal and use your OPENTLC credentials to log in.
+. Navigate to *Services* on the left side
+. Locate your lab environment in the list of your services
+. On the right hand side under the Actions column you will find the start button, use it.
 
 After a few minutes, expect to receive an email letting you know that the Hands-On with Red Hat Advanced Cluster Security environment has been started.
 
@@ -201,7 +183,7 @@ roxctl --insecure-skip-tls-verify -e "$ROX_CENTRAL_ADDRESS:443" central whoami
 .Sample Output
 ----
 User:
-  auth-token:03b68fd3-313e-40a0-91f5-6ac88d8517a4
+  auth-token:03b73fd3-313e-40a0-91f5-6ac88d8517a4
 Roles:
  Admin, Analyst, Continuous Integration, None, Scope Manager, Sensor Creator, Vulnerability Management Approver, Vulnerability Management Requester, Vulnerability Report Creator
 Access:
@@ -219,21 +201,21 @@ The RHACS Security Platform installs as a set of pods in your OpenShift cluster 
 
 image::images/architecture_acs.png[ACS Architecture, 800]
 
-* link:https://docs.openshift.com/acs/3.68/architecture/acs-architecture.html#centralized-components_acs-architecture[**Central**^]: [Centralized component] Central is the main component of RHACS and it is installed as a Kubernetes deployment.
+* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#centralized-components_acs-architecture[**Central**^]: [Centralized component] Central is the main component of RHACS and it is installed as a Kubernetes deployment.
 It handles data persistence, API interactions, and user interface (portal) access.
 You can use the same Central instance to secure multiple OpenShift Container Platform or Kubernetes clusters.
 
-* link:https://docs.openshift.com/acs/3.68/architecture/acs-architecture.html#centralized-components_acs-architecture[**Scanner**^]: [Centralized component] RHACS includes an image vulnerability scanning component called Scanner.
+* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#centralized-components_acs-architecture[**Scanner**^]: [Centralized component] RHACS includes an image vulnerability scanning component called Scanner.
 It analyzes the image layers to check for known vulnerabilities from the Common Vulnerabilities and Exposures (CVEs) list.
 Scanner also identifies vulnerabilities in packages installed by package managers and in dependencies for multiple programming languages.
 
-* link:https://docs.openshift.com/acs/3.68/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Sensor**^]: [1 per cluster] RHACS uses the Sensor component to monitor Kubernetes and OpenShift Container Platform clusters.
+* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Sensor**^]: [1 per cluster] RHACS uses the Sensor component to monitor Kubernetes and OpenShift Container Platform clusters.
 It handles interactions with the OpenShift Container Platform or Kubernetes API server for policy detection and enforcement, and it coordinates with Collector.
 
-* link:https://docs.openshift.com/acs/3.68/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Admission controller**^]: [1 per cluster] The admission controller prevents users from creating workloads that violate security policies in RHACS.
+* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Admission controller**^]: [1 per cluster] The admission controller prevents users from creating workloads that violate security policies in RHACS.
 [1 x Admission Controller]
 
-* link:https://docs.openshift.com/acs/3.68/architecture/acs-architecture.html#per-node-components_acs-architecture[**Collector**^]: [1 per node] Collector collects and monitors information about container runtime and network activity.
+* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-node-components_acs-architecture[**Collector**^]: [1 per node] Collector collects and monitors information about container runtime and network activity.
 It then sends the collected information to Sensor.
 
 NOTE: Scanner only scans those images that are not already scanned by other integrated vulnerability scanners.
