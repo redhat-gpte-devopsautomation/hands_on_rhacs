@@ -1,7 +1,10 @@
 ---
 modules:
-  01_Course_Introduction_Lab:
+  00_Course_Introduction_Lab:
     name: Course Introduction
+    exit_sign: Dashboard Introduction
+  01_Dashboard_Introduction_Lab:
+    name: Dashboard Introduction
     exit_sign: Vulnerability Management
   02_Vulnerability_Management_Lab:
     name: Vulnerability Management

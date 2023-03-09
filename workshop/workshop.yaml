@@ -2,7 +2,8 @@
 name: Hands-On with Red Hat Advanced Cluster Security for Kubernetes
 modules:
   activate:
-    - 01_Course_Introduction_Lab
+    - 00_Course_Introduction_Lab
+    - 01_Dashboard_Introduction_Lab
     - 02_Vulnerability_Management_Lab
     - 03_Risk_Profiling_Lab
     - 04_Network_Segmentation_Lab
