@@ -30,7 +30,7 @@ To complete all of the lab tasks.
 
 This course comprises a single-node OpenShift Container Platform (OCP) cluster, an OpenShift control plane and a worker node in one large virtual machine (VM). A Linux VM to enable connection to the Lab components is called a Linux^(R)^ student VM. There the lab is comprised of the following components.
 
-1. Red Hat OpenShift^(R)^ Container Platform 4.9 with RHACS installed on a single virtual machine (VM)
+1. Red Hat OpenShift^(R)^ Container Platform 4.12 with RHACS installed on a single virtual machine (VM)
 2. A Linux^(R)^ student VM (hostname `bastion`) for command line tasks
 
 === Red Hat OpenShift^(R)^ Container Platform Components
@@ -310,21 +310,21 @@ For all updated information regarding the RHACS product documentation and archit
 
 The RHACS Security Platform installs as a set of pods in your OpenShift cluster and includes the following components:
 
-* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#centralized-components_acs-architecture[**Central**^]: [Centralized component] Central is the main component of RHACS and it is installed as a Kubernetes deployment.
+* link:https://docs.openshift.com/acs/3.74/architecture/acs-architecture.html#centralized-components_acs-architecture[**Central**^]: [Centralized component] Central is the main component of RHACS and it is installed as a Kubernetes deployment.
 It handles data persistence, API interactions, and user interface (portal) access.
 You can use the same Central instance to secure multiple OpenShift Container Platform or Kubernetes clusters.
 
-* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#centralized-components_acs-architecture[**Scanner**^]: [Centralized component] RHACS includes an image vulnerability scanning component called Scanner.
+* link:https://docs.openshift.com/acs/3.74/architecture/acs-architecture.html#centralized-components_acs-architecture[**Scanner**^]: [Centralized component] RHACS includes an image vulnerability scanning component called Scanner.
 It analyzes the image layers to check for known vulnerabilities from the Common Vulnerabilities and Exposures (CVEs) list.
 Scanner also identifies vulnerabilities in packages installed by package managers and in dependencies for multiple programming languages.
 
-* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Sensor**^]: [1 per cluster] RHACS uses the Sensor component to monitor Kubernetes and OpenShift Container Platform clusters.
+* link:https://docs.openshift.com/acs/3.74/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Sensor**^]: [1 per cluster] RHACS uses the Sensor component to monitor Kubernetes and OpenShift Container Platform clusters.
 It handles interactions with the OpenShift Container Platform or Kubernetes API server for policy detection and enforcement, and it coordinates with Collector.
 
-* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Admission controller**^]: [1 per cluster] The admission controller prevents users from creating workloads that violate security policies in RHACS.
+* link:https://docs.openshift.com/acs/3.74/architecture/acs-architecture.html#per-cluster-components_acs-architecture[**Admission controller**^]: [1 per cluster] The admission controller prevents users from creating workloads that violate security policies in RHACS.
 [1 x Admission Controller]
 
-* link:https://docs.openshift.com/acs/3.73/architecture/acs-architecture.html#per-node-components_acs-architecture[**Collector**^]: [1 per node] Collector collects and monitors information about container runtime and network activity.
+* link:https://docs.openshift.com/acs/3.74/architecture/acs-architecture.html#per-node-components_acs-architecture[**Collector**^]: [1 per node] Collector collects and monitors information about container runtime and network activity.
 It then sends the collected information to Sensor.
 
 

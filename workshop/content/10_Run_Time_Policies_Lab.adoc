@@ -184,7 +184,7 @@ image::images/rhacs_runtime_violations_tmp-shell.png[RHACS run time Violations]
 If configured, each violation record is pushed to a Security Information and Event Management (SIEM) integration, and is available to be retrieved via the API.
 The forensic data shown in the UI is recorded, including the timestamp, process user IDs, process arguments, process ancestors, and enforcement action.
 +
-For more information about integration with SIEM tools, see the RHACS help documentation on link:https://docs.openshift.com/acs/3.73/welcome/index.html#integrating-with-other-products[external tools^].
+For more information about integration with SIEM tools, see the RHACS help documentation on link:https://docs.openshift.com/acs/3.74/welcome/index.html#integrating-with-other-products[external tools^].
 +
 After this issue is addressed--in this case by the RHACS product using the runtime enforcement action--you can remove it from the list by marking it as `Resolved`.
 
