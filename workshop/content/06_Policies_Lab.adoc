@@ -33,24 +33,24 @@ You build on what you learned in prior labs to create and exercise policies in t
 
 
 == Understand System Policies
-
+M
 The policies that ship with the product are designed with the goal of providing targeted remediation that improves security hardening.
 This list contains many build- and deploy-time policies to catch misconfigurations early in the pipeline, but also runtime policies that point back to specific hardening recommendations.
 While these policies come from Red Hat's expertise and interpretations of industry best practice and  common compliance standards, you can modify them or create your own.
 
 === Examine Specific Policy
 
-In this section, you open a *Policy Detail* panel to learn more about a policy.
+In this section, you open a *Policy Management* panel to learn more about a policy.
 
 .Procedure
 . From the left navigation menu, select the *Platform Configuration* tab and then *System Policies*:
 +
-image::images/rhacs_policy_overview.png[RHACS Policy Overview]
+image::images/06_policy_01.png[RHACS Policy Overview]
 
 . Select the `Alpine Linux Package Manager (apk) in Image` policy.
 . On the right, examine the policy details:
 +
-image::images/rhacs_policy_specific_policy.png[RHACS Policy Specific]
+image::images/06_policy_02.png[RHACS Policy Specific]
 
 This is what an RHACS policy looks like. The descriptive details under *Policy Details*, *Rationale*, and *Remediation* provide the DevOps team with context about why this issue is important for security and, more importantly, what to do about it.
 This policy violation notes that including package managers in containers is a security risk.
@@ -62,7 +62,7 @@ RHACS focuses on empowering and encouraging developers to understand and resolve
 Sometimes you have to balance the carrot with a stick, because security officers need to know that dangerous misconfigurations are not to be promoted and deployed in certain environments. That is where policy enforcement comes in.
 
 .Procedure
-. From the list, select the `Fixable CVSS >=7` policy.
+. From the list, select the `Severity CRITICAL_SEVERITY` policy.
 +
 TIP: To easily find the entry, scroll down approximately 20-30 rows or type `fixable` in the filter bar.
 
@@ -70,7 +70,7 @@ TIP: To easily find the entry, scroll down approximately 20-30 rows or type `fix
 . Click *Next* (right arrow) to see *Policy Criteria*.
 . Click *Next* to see *Violations Preview*.
 . Click *Next* to see *Enforcement*.
-. Click the *ON* switch for both build-time and deploy-time enforcement.
+. Make sure the *ON* switch is clicked for both build-time and deploy-time enforcement.
 . Click *Save* (the floppy disk icon).
 
 Enforcement is another demonstration of Kubernetes-native security, leveraging the pipeline process to prevent unacceptable risks.
@@ -96,7 +96,7 @@ This example shows the use of categories to aid in responding to incidents by ad
 +
 . Examine your policy and expect it to look like this:
 +
-image::rhacs_policy_categories_new.png[RHACS Policy Categories]
+image::images/rhacs_policy_categories_new.png[RHACS Policy Categories]
 
 . Click *Next*, and then *Next* again, and then click *Save*.
 . Return to the *Dashboard* and scroll down to find the *INVESTIGATION* graph.

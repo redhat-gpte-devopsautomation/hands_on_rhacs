@@ -7,7 +7,7 @@
 == Introduction to {labname}
 
 The compliance reports of Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS) gather information for configuration, industry standards, and best practices for container-based workloads running in OpenShift^(R)^.
-You are already familiar with some compliance features because they are tied to controls that you saw in the *Risk* view--on the *Network Graph* and in *Policies* pages.
+You are already familiar with some compliance features because they are tied to controls you saw in the *Risk* view--on the *Network Graph* and in *Policies* pages.
 Each standard represents a series of controls, with guidance provided by Red Hat on the specific OpenShift configuration or DevOps process required to meet that control.
 
 .Goals
@@ -45,13 +45,13 @@ When you return to look at the NIST policy and its Control 4.1.1, it will be at 
 NOTE: The `NIST 800-190` application containers security standard requires a pipeline-based build approach to mitigating vulnerabilities in images.
 
 . Toggle enforcement of the `Fixable Severity at least Important` policy by finding the policy and editing.
-.. From the left navigation menu, click *Platform Configuration -> System Policies*.
+Click *Platform Configuration -> System Policies*from the left navigation menu.
 .. Type `Fixable Severity` into the filter bar to find the policy, then click the full name `Fixable Severity at least important`, then click away from the filter bar.
 . Click the `Fixable Severity` item from the list.
 .. Click *Edit* on the *Policy Details* panel and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* panel.
 .. Toggle the *Enforcement Behavior* to *ON* for both *Build* and *Deploy*.
 +
-NOTE: If NIST SP 800-190 Controll 4.1.1 was already showing 100% compliance, then turn these enforcements off to demonstrate the Control out of compliance at 0%.
+NOTE: If NIST SP 800-190 Control 4.1.1 was already showing 100% compliance, then turn these enforcements off to demonstrate the Control out of compliance at 0%.
 .. Click *Save*.
 . Return to the *Compliance* view and select the `NIST SP 800-190` standard.
 . Examine the results and note the value of the `Control 4.1.1` compliance percentage.
@@ -69,7 +69,7 @@ Red Hat is now migrating to a method of expressing policy independent of single 
 . On the left navigation menu, click the *Compliance* tab.
 . In the top toolbar of the *Compliance* page, click *Namespaces*.
 +
-It is valuable to break this data down by clusters, namespaces, and deployments.
+Breaking this data down into clusters, namespaces, and deployments is valuable.
 Namespaces are particularly useful because they can show where the gaps in compliance are application-by-application or team-by-team.
 
 === Export Evidence
@@ -83,7 +83,7 @@ A final note about compliance--you are only as compliant as you can prove!
 +
 image::images/rhacs_compliance_download.png[RHACS Compliance Report Download]
 +
-This is the evidence export that your auditors may want to see for proof that the mandated security controls are actually in place.
+This is the evidence export that your auditors may want to see for proof that the mandated security controls are in place.
 
 == Summary
 
@@ -92,3 +92,4 @@ In this lab, you explored how standards compliance is affected by policy enforce
 You also exported reports of standards compliance.
 
 In the next lab, you complete activities that test policies at build time, deploy time, and runtime.
+
