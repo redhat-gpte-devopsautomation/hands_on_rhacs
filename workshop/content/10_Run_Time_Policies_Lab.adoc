@@ -25,20 +25,17 @@ This allows the user to quickly assess and address novel situations.
 
 === Clean Up Blocking Policies
 
-The `No bash allowed` policy from lab 3 will block this lab, so you must delete it.
+The `No bash allowed` policy from lab 4 will block this lab, so you must delete it. You may also have to do the same for the "Images with no scans" policy from the previous lab.
 
 .Procedure
-. Navigate to *Platform Configuration -> System Policies* and find the `No bash allowed` policy.
+. Navigate to *Platform Configuration -> Policy Management* and find the `No bash allowed` policy.
 +
 [TIP]
 ====
-On the *System Policies* page, type `bash` into the filter bar at the top.
+On the *System Management* page, type `Policy` and then `no bash` into the filter bar at the top.
 ====
 
-. Select the policy name to open the side panel.
-. Click *Edit* and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* page.
-. Click the *ON* switch for runtime enforcement.
-. Click *Save*.
+. Select the three dots to the right of the policy and delete it. 
 
 
 === Prevent Execution of Package Manager Binary
@@ -54,17 +51,18 @@ Further, because a runtime policy may detect only part of an attacker's activity
 === Enable Enforcement of Policy
 
 .Procedure
-. Navigate to *Platform Configuration -> System Policies* and find the `Ubuntu Package Manager Execution` policy.
+. Navigate to *Platform Configuration -> Policy Management* and find the `Ubuntu Package Manager Execution` policy.
 +
 [TIP]
 ====
-On the *System Policies* page, type `Ubuntu` into the filter bar at the top.
+On the *Policy Management* page, type `Policy` + `Ubuntu` into the filter bar at the top.
 ====
 
-. Select the policy name to open the side panel.
-. Click *Edit* and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* page.
-. Click the *ON* switch for runtime enforcement.
+. Select the policy `Ubuntu Package Manager Execution`, and edit the policy.
+. Use the `Policy Behavior` tab and enable runtime enforcement by clicking the `inform and enforce button`
 . Click *Save*.
+
+image::images/10_runtime_00.png[RHACS run time Violations]
 
 === Test Policy
 
@@ -75,7 +73,7 @@ In this section, you use `tmux` to watch OpenShift _events_ while running the te
 +
 [source,sh]
 ----
-tmux new-session \; split-window -h \; split-window -v \; attach
+tmux new-session \; split-window -v \; attach 
 ----
 +
 . Run a watch on OpenShift events in the first shell pane:

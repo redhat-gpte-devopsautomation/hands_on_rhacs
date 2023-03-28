@@ -54,7 +54,7 @@ They are the events captured during build and deploy time.
 . Click the *Policy* tab:
 +
 // image::rhacs_violations_deployment_events.png[RHACS Violations - Deploy Time]
-image::images/rhacs_violations_policy.png[RHACS Violations - Policy]
+image::images/05_violation_01.png[RHACS Violations - Policy]
 +
 The *Policy Details* page includes a detailed description, rationale, and remediation for the violation.
 Note that *Lifecycle Stage* is set to `Build, Deploy`.
@@ -90,7 +90,7 @@ In this section, you lean how to remove the package manager--using the simple Do
 
 .Procedure
 . In the *Violation Details* view, click the *Policy* tab.
-. Highlight the text of the Dockerfile in the `Remediation` section of the policy:
+. Highlight the text of the Dockerfile in the `Guidance` section of the policy:
 +
 image::images/rhacs_violations_remediation.png[RHACS Violation - Remediation]
 

@@ -25,40 +25,55 @@ Each standard represents a series of controls, with guidance provided by Red Hat
 .Procedure
 . From the left navigation menu, select the *Compliance* tab:
 +
-image::images/rhacs_compliance_overview.png[RHACS Compliance Overview]
+image::images/07_comp_00.png[RHACS Compliance Overview]
 +
 . In the upper left of the *Passing Standards Across Clusters* graph, click *PCI* or the *PCI* percentage bar.
-. Select `Control 1.1.4, "Requirements for a firewall..."`.
+. Search for `Control 1.1.4, "Requirements for a firewall..."`.
 +
 In this example, PCI-DSS has controls that refer to firewalls and the DMZ (not really relevant to cloud-native).
 In OpenShift, that requirement and other isolation requirements are met by network policies.
-The low (approximately `19%`) compliance score shown in this image indicates that only about one-fifth of your deployments have correctly defined policies.
+The low (approximately `6%`) compliance score shown in this image indicates that only a small percentage of your deployments have correctly defined policies.
++
+image::images/07_comp_01.png[comp_percent]
++
+
 +
 . From the left navigation menu, click the *Compliance* tab.
-. Select `NIST SP 800-190`.
-. Select `Control 4.1.1, "Image vulnerabilities..."`.
+. Select the `NIST SP 800-190` pie chart.
+. Search `Control 4.1.1, "Image vulnerabilities..."`.
 +
+
+NOTE:
 If the control's compliance is `100%`, the `Fixable Severity at least Important` policy is enabled and set to enforcing.
-To see it change to `0%`, do the following activity and rather than setting enforcement to *ON*, set it to *OFF*.
-When you return to look at the NIST policy and its Control 4.1.1, it will be at 0%.
-+
+
+To see the standard drop to `0%`, do the following activity and to turn the policy enforcement *OFF*.
+
+
 NOTE: The `NIST 800-190` application containers security standard requires a pipeline-based build approach to mitigating vulnerabilities in images.
 
+[start=7]
 . Toggle enforcement of the `Fixable Severity at least Important` policy by finding the policy and editing.
 Click *Platform Configuration -> System Policies*from the left navigation menu.
-.. Type `Fixable Severity` into the filter bar to find the policy, then click the full name `Fixable Severity at least important`, then click away from the filter bar.
-. Click the `Fixable Severity` item from the list.
-.. Click *Edit* on the *Policy Details* panel and click *Next*, and then click *Next* on the two panels that follow to arrive at the *Enforcement* panel.
-.. Toggle the *Enforcement Behavior* to *ON* for both *Build* and *Deploy*.
-+
+
+image::images/07_comp_01.png[comp_percent]
+
+[start=8]
+. Type `Fixable Severity` into the filter bar to find the policy, then click the full name `Fixable Severity at least important`, then click away from the filter bar.
+. Click to the right of the policy and disable it.
+
+image::images/07_comp_02.png[policy update]
+
 NOTE: If NIST SP 800-190 Control 4.1.1 was already showing 100% compliance, then turn these enforcements off to demonstrate the Control out of compliance at 0%.
-.. Click *Save*.
+
+[start=10]
 . Return to the *Compliance* view and select the `NIST SP 800-190` standard.
 . Examine the results and note the value of the `Control 4.1.1` compliance percentage.
 . Click *Scan*, and watch as the compliance percentage changes.
 +
-Because you changed enforcement to the `Fixable Severity at least Important` policy, you now meet the requirement dictated by `Control 4.1.1`, and the `0%` score changes to `100%` because you now have the control in place to prevent known vulnerabilities from being deployed.
-+
+Because you changed enforcement to the `Fixable Severity at least Important` policy, you now meet the requirement dictated by `Control 4.1.1`, and the `100%` score changes to `0%` because you now have the control in place to prevent known vulnerabilities from being deployed.
+
+image::images/07_comp_03.png[policy fix]
+
 WARNING: As of recent releases of RHACS, the `Fixable CVSS >= 7` policy was _deactivated by default_, and replaced with `Fixable Severity at least Important`.
 The name `CVSS >= 7` implies a value of `Important`.
 Red Hat is now migrating to a method of expressing policy independent of single measures, adopting a more general and actionable language.

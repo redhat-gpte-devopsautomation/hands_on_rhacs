@@ -31,10 +31,10 @@ In this section, you configure the proper policies for enforcement, test them on
 === Configure RHACS Policy
 
 .Procedure
-. From the left navigation menu, select *Platform Configuration -> System Policies*.
+. From the left navigation menu, select *Platform Configuration -> Policy Management*.
 . Scroll down to `Fixable CVSS >= 7` (`rhacs_fix_image_vuln_policy`):
 +
-image::images/rhacs_fix_image_vuln_policy.png[RHACS Policy - Configure]
+image::images/08_build_00.png[RHACS Policy - Configure]
 +
 TIP: You can find this policy quickly by entering `fixable` in the filter bar at the top of the page.
 +
@@ -43,12 +43,9 @@ RHACS can detect the presence of this vulnerability in images at both stages.
 But it is not yet enabled, and is not yet enforcing.
 The next steps are to edit the policy to enable and enforce it.
 
-. Review the other attributes, and note the `Rationale` and `Remediation` fields, which you can expect to see in the policy output later.
-. In the upper right, click *Edit*.
-. Click the *Enabled* switch to make sure that the policy is `Enabled`.
-. Click *Next* to review the policy criteria.
-. Click *Next* to see a _preview_ of policy violations, then *Next* again to review the enforcement options.
-. Click the *ON* switch for *BUILD* time enforcement and then *Save*.
+. Review the other attributes, and note the `Rationale` and `Guidance` fields, which you can expect to see in the policy output later.
+. Click the `Actions` drop down and enable the policy.
+. You can also edit the policy and preview oputcomes before accept any changes to the policy.
 
 === Test Image Vulnerability Enforcement
 

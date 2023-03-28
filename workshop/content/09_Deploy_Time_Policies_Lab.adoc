@@ -42,11 +42,7 @@ CAUTION: Before configuring this lab, be aware that enforcing this policy blocks
 For more information, review the RHACS help for Scanner and Image Registries.
 
 . Navigate to *Platform Configuration -> System Policies*, find the `Images with no scans` policy, and select it to open the side panel.
-. On the first page, click *Edit* (pencil) and then click the switch to *Enable* the policy.
-. Click *Next* and then click *Next* on the panel that follows to land on the *Enforcement* page.
-. Click the *ON* switch to enable deploy-time enforcement, and click *Save*.
-+
-This attempts to deploy an image that has no scanning status and results in the Kubernetes admission controller rejecting that deployment.
+. On the first page, click *Edit* (pencil) and enable the policy. This policy rejects attempts to deploy an image that has no scanning status.
 +
 . On your student VM, use Kubernetes to deploy a deliberately nonsensical image with no scans:
 +
@@ -135,9 +131,8 @@ spec:
 EOF
 ----
 +
-. In the *Platform Configuration -> System Policies* page of the RHACS web console, configure the `Environment Variable Contains Secret` policy.
-. Click *Edit* and click *Next*, and then click *Next* on the panel that follows to arrive at the enforcement options.
-. Turn on the `Deployment enforcement` option, then click *Save*.
+. In the *Platform Configuration -> Policy Management* page of the RHACS web console, locate the `Environment Variable Contains Secret` policy.
+. Click the `Actions` drop down and enable the policy.
 +
 At build time, the `roxctl` binary can be used to _preview_ the Deployment before actually attempting to create it in a Kubernetes cluster.
 +

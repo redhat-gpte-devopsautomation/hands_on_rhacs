@@ -164,10 +164,11 @@ You must fill out some additional information.
 * *Lifecycle stages*: `Runtime`
 * *Event sources*; `Deployment`
 * *Response method*: `Inform`
+* *Inform and enforce*: `Enform on Runtime`
 
-* *Policy Crieria*: `Scroll to find *Process Activity* and select *Unexpected process executed*`
+* *Policy Crieria*: `On the right there is a *drag out policy fields* bar.Find *Process Activity* and select *Unexpected process executed*. Drag into into the policy section.`
 
-You can preview the policy before accepting. 
+Make sure to preview the policy before accepting it. 
 
 === Explore Advanced Filtering
 
@@ -185,8 +186,8 @@ NOTE: Not all filters can be used in policies.
 RHACS drops or modifies filters that do not directly map to policy criteria and reports the dropped filters.
 See the link:https://docs.openshift.com/acs/3.74/operating/evaluate-security-risks.html#understanding-filtering-to-policy-mapping_evaluate-security-risks[Understanding ... the filtering criteria into policy criteria^] documentation for more information.
 
-.Procedure
-. Try some of these scopes yourself by indicating different namespaces in your filters.
+== Extra Work
+Try some of these scopes yourself by indicating different namespaces in your filters.
 
 == Summary
 

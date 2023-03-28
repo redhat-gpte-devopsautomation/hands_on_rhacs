@@ -49,7 +49,7 @@ image::images/04_ng_02.png[RHACS Network filter]
 
 * You can easily navigate between any of the clusters connected to RHACS.
 * The default view, *Active*, shows actual traffic for the past hour between the deployments in the namespaces.
-* You can change the time frame (in the upper right menu) and the legend (at the bottom left).
+* You can change the time frame (in the upper left corner of the menu) and review the legend (in the bottom left corner).
 * Click on the `backend-atlas` deployment to get a sidebar to appear.
 
 image::images/04_ng_03.png[RHACS Network select]
