@@ -1,6 +1,6 @@
 :labname: Introduction to the RHACS Dashboard
 
-== {labname} Lab
+== {labname}
 
 :numbered:
 

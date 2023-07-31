@@ -4,6 +4,10 @@
 
 :numbered:
 
+
+[source,bash,role="execute"]
+[source,bash,role="copypaste copypaste-warning"]
+
 == Introduction to Course Setup and Product Overview
 
 This course offers you hands-on experience working with the essential use cases of Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS) and the spotlight on new features in new releases.
@@ -12,8 +16,8 @@ In this lab, you learn about the environment deployed for running RHACS, verify 
 
 .Goals
 * Understand, provision, and access the environment
-* Understand RHACS architecture
-* Understand the RHACS console
+* Review RHACS architecture
+* Review the RHACS console
 * Test practical use cases and features in RHACS
 
 == Lab Components
@@ -33,24 +37,7 @@ This course comprises a single-node OpenShift Container Platform (OCP) cluster, 
 1. Red Hat OpenShift^(R)^ Container Platform 4.12 with RHACS installed on a single virtual machine (VM)
 2. A Linux^(R)^ student VM (hostname `bastion`) for command line tasks
 
-=== Red Hat OpenShift^(R)^ Container Platform Components
-
-To illustrate that the installation is running Single Node OpenShift. Here is the output of an example `oc get nodes` command that shows the `master` node is also a `worker` node:
-
-*Sample input*
-[source,bash]
-----
-oc get nodes
-----
-*Sample output*
-[source,bash]
-----
-NAME                                         STATUS   ROLES           AGE   VERSION
-ip-10-0-143-248.us-east-2.compute.internal   Ready    master,worker   92m   v1.22.3+ffbb954
-----
-
-[NOTE] 
-This command can be run later once the connections are set up.
+=== Red Hat OpenShift^(R)^ Container Platform (OCP) Components
 
 ==== Installed OCP Components (RHACS and more)
 
@@ -65,7 +52,7 @@ The following components are necessary to complete the labs installed in the env
 *** Collector
 *** Admission controller
 
-* Red Hat OpenShift Pipelines Operator 
+* Red Hat^(R)^ OpenShift Pipelines Operator 
 ** Tekton Pipelines 
 ** Tekton Triggers 
 ** ClusterTasks based on Tekton Catalog 
@@ -190,11 +177,12 @@ The student VM host serves as an important access point into the environment, so
 This information will be available in the services tab at link:https://demo.redhat.com/[demo.redhat.com^]. Or in the lab provisioning email.
 
 .Procedure
+[start=1]
 
-.1. Connect to your student VM host using the command and password you received in the provisioning email:
+. Connect to your student VM host using the command and password you received in the provisioning email:
 
 *Sample command*
-[source,bash]
+[source,bash,role="copypaste copypaste-warning"]
 ----
 ssh lab-user@bastion.<$GUID>.<$BASEDOMAIN>
 ----
@@ -206,10 +194,12 @@ ED25519 key fingerprint is SHA256:g0H5C1vP1xNqhL7fp0HxMRDPgjgzuAdi3ZIyKQl1mPU.
 This key is not known by any other names.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 ----
-.2. Verify that the GUID variable is set correctly for your environment:
+
+[start=2]
+. Verify that the GUID variable is set correctly for your environment:
 
 *Sample command*
-[source,bash]
+[source,bash,role="execute"]
 ----
 echo $GUID
 ----
@@ -241,7 +231,7 @@ This information will be available in the services tab at link:https://demo.redh
 . Use the `oc login` command to log in to the cluster as the `opentlc-mgr` user:
 
 *Sample input*
-[source,bash]
+[source,bash,role="copypaste copypaste-warning"]
 ----
 oc login -u opentlc-mgr -p <password from email> <OpenShift API URL from email>
 ----
@@ -250,9 +240,23 @@ oc login -u opentlc-mgr -p <password from email> <OpenShift API URL from email>
 ----
 Login successful.
 
-You have access to 76 projects, the list has been suppressed. You can list all projects with 'oc projects'
+You have access to 78 projects, the list has been suppressed. You can list all projects with 'oc projects'
 
 Using project "default".
+----
+
+To illustrate that the installation is running Single Node OpenShift. Here is the output of an example `oc get nodes` command that shows the `master` node is also a `worker` node:
+
+*Sample input*
+[source,bash,role="execute"]
+----
+oc get nodes
+----
+*Sample output*
+[source,bash]
+----
+NAME                                         STATUS   ROLES           AGE   VERSION
+ip-10-0-143-248.us-east-2.compute.internal   Ready    master,worker   92m   v1.22.3+ffbb954
 ----
 
 === Access the RHACS Central Services in the Student VM via the 'roxctl' Command
@@ -269,7 +273,7 @@ This information will be available in the services tab at link:https://demo.redh
 .Procedure
 . From the student VM, use the following command to verify your connection to RHACS Central:
 *Sample input*
-[source,bash]
+[source,bash,role="execute"]
 ----
 roxctl --insecure-skip-tls-verify -e "$ROX_CENTRAL_ADDRESS:443" central whoami
 ----
