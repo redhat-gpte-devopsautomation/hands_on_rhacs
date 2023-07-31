@@ -1,0 +1,266 @@
+:labname: Black Hat - RHACS Log4Shell Vulnerability Demonstration
+
+:numbered:
+
+== Introduction to {labname}
+
+.Goals
+* Prevent the execution of vulnerable deployments
+* Report and resolve the violation
+
+[[labexercises]]
+
+=== Access the Student VM via SSH
+
+The student VM host serves as an important access point into the environment, so you must ensure you can connect to it.
+
+*Requirements* 
+
+* *The ssh address for the bastion host:* 
+** For example, 'lab-user@bastion.4klh8.sandbox1150.opentlc.com' 
+* *The username and password for the Linux student VM (lab-user)*
+
+[NOTE]
+This information will be available in the secondary tab.
+
+.Procedure
+
+.1. Connect to your student VM host using the command and password you received in the provisioning email:
+
+*Sample command*
+[source,bash]
+----
+ssh lab-user@bastion.<$GUID>.<$BASEDOMAIN>
+----
+*Sample output*
+[source,bash]
+----
+The authenticity of host' bastion.4klh8.sandbox1150.opentlc.com (3.134.153.6)' cant be established.
+ED25519 key fingerprint is SHA256:g0H5C1vP1xNqhL7fp0HxMRDPgjgzuAdi3ZIyKQl1mPU.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+----
+.2. Verify that the GUID variable is set correctly for your environment:
+
+*Sample command*
+[source,bash]
+----
+echo $GUID
+----
+*Sample output*
+[source,bash]
+----
+c3po
+----
+
+[NOTE]
+Your GUID may be a 4- or 5-character alphanumeric string.
+
+
+== Test Log4Shell Policy
+
+In this lab, you demonstrate how to quickly stop workloads with `log4shell` vulnerabilities from deploying using Red Hat^(R)^ Advanced Cluster Security for Kubernetes (RHACS).
+You also learn how to locate workloads with `log4shell`.
+
+The Log4Shell policy is a build- and deployment-time policy.
+It analyses the image file for vulnerable Java(TM) Log4J versions.
+
+=== Deploy Vulnerable Image
+
+Use `tmux` to watch OpenShift^(R)^ `events` while running the test, so you can see how RHACS enforces the policy at runtime.
+
+.Procedure
+. On your student VM, start `tmux` with two panes:
++
+[source,bash,role="execute"]
+----
+tmux new-session \; split-window -v \; attach
+----
++
+. Run a watch on OpenShift events in the first pane's shell:
++
+[source,bash,role="execute"]
+----
+oc get events -w
+----
++
+. Type `Ctrl-b o` to switch to the next pane.
+. Create a namespace to manage your deployment:
++
+[source,bash,role="execute"]
+----
+oc new-project log4shell
+----
++
+.Sample Output
+[source,texinfo]
+----
+Already on project "log4shell" on server "https://api.cluster-f82tm.f82tm.sandbox1350.opentlc.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/serve_hostname
+----
++
+. Deploy the vulnerable application.
+.. Create a Deployment manifest file:
++
+[source,bash,role="execute"]
+----
+cat << EOF >deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log4shell
+  namespace: log4shell
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: log4shell
+  template:
+    metadata:
+      labels:
+        deployment: log4shell
+    spec:
+      containers:
+      - image: quay.io/gpte-devops-automation/log4shell-vuln-app:v0.1.1
+        imagePullPolicy: IfNotPresent
+        name: log4shell
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+EOF
+----
++
+.. Create the Deployment based on the manifest file:
++
+[source,bash,role="execute"]
+----
+oc create -f ./deploy.yaml
+----
+
+Notice the application was deployed without issues. 
+
+=== Check for vulnerability in ACS dashboard. 
+
+It is now possible to see the Log4Shell vulnerability in the ACS dashboard.
+
+.Procedure
+. In the ACS dashboard, navigate to *Violations*
+
+Notice `Log4Shell: log4j Remote Code Execution vulnerability` is now visible in the violations list. 
+
+. Click on the `Log4Shell: log4j Remote Code Execution vulnerability` to get more information on the violation. 
+
+. Click on the *Deployment* tab to view information about the vulnerable deployment. 
+
+. Click on the *Policy* tab to view the current policy. 
+
+. Delete the log4shell deployment: 
+[source,bash,role="execute"]
+----
+oc delete -f ./deploy.yaml
+----
+
+=== Set Deploy Time Enforcement to On
+
+You must enable deploy-time enforcement for the `Log4Shell: log4j Remote Code Execution vulnerability` policy.
+
+.Procedure
+. Navigate to *Platform Configuration -> Policy Management* and find the policy called `Log4Shell: log4j Remote Code Execution vulnerability`.
++
+TIP: To find the policy quickly, type `Policy` followed by `Log4Shell` into the filter bar on the *Policy Management* page.
+
+. Select the policy by clicking the three dots to the right and select `Edit policy`.
+. Use the `Policy Behavior` tab and enable runtime enforcement by clicking the `inform and enforce button` under `Response Method`
+. Scroll down to `Configure enforcement behavior` and switch both the `Enforce on Build` and `DEnforce on Deploy` selectors to on. 
+. Click *Review Policy* on the left and *Save*.
+
++
+. Redeploy the vulnerable image
++
+[source,bash,role="execute"]
+----
+oc create -f ./deploy.yaml
+----
++
+. Examine the output and note that the Deployment failed to start:
++
+
+.Sample Output
+[source,texinfo]
+----
+Error from server (Failed currently enforced policies from StackRox): error when creating "./deploy.yaml": admission webhook "policyeval.stackrox.io" denied the request:
+The attempted operation violated 1 enforced policy, described below:
+
+Policy: Log4Shell: log4j Remote Code Execution vulnerability
+- Description:
+    ↳ Alert on deployments with images containing the Log4Shell vulnerabilities
+      (CVE-2021-44228 and CVE-2021-45046). There are flaws in the Java logging library
+      Apache Log4j in versions from 2.0-beta9 to 2.15.0, excluding 2.12.2.
+- Rationale:
+    ↳ These vulnerabilities allows a remote attacker to execute code on the server if
+      the system logs an attacker-controlled string value with the attacker's JNDI
+      LDAP server lookup.
+- Remediation:
+    ↳ Update the log4j libary to version 2.16.0 (for Java 8 or later), 2.12.2 (for
+      Java 7) or later. If not possible to upgrade, then remove the JndiLookup class
+      from the classpath: zip -q -d log4j-core-*.jar
+      org/apache/logging/log4j/core/lookup/JndiLookup.class
+- Violations:
+    - CVE-2021-44228 (CVSS 10) (severity Critical) found in component 'log4j' (version 2.14.1) in container 'log4shell'
+    - CVE-2021-45046 (CVSS 9) (severity Critical) found in component 'log4j' (version 2.14.1) in container 'log4shell'
+
+
+In case of emergency, add the annotation {"admission.stackrox.io/break-glass": "ticket-1234"} to your deployment with an updated ticket number
+----
++
+[CAUTION]
+====
+You might get a different message, detailed below.
+RHACS has not yet scanned the image, and is blocking unscanned images from deployment.
+If that is the case, simpley run the `oc create -f ./deploy.yaml` again and it will have scanned the image.
+Now the deployment will trigger the log4j violations above.
+----
+Error from server (Failed currently enforced policies from StackRox): error when creating "./deploy.yaml": admission webhook "policyeval.stackrox.io" denied the request:
+The attempted operation violated 1 enforced policy, described below:
+
+Policy: Images with no scans
+- Description:
+    ↳ Alert on deployments with images that have not been scanned
+- Rationale:
+    ↳ Without a scan, there will be no vulnerability information for this image
+- Remediation:
+    ↳ Configure the appropriate registry and scanner integrations so that StackRox can
+      obtain scans for your images.
+- Violations:
+    - Image in container 'log4shell' has not been scanned
+
+
+In case of emergency, add the annotation {"admission.stackrox.io/break-glass": "ticket-1234"} to your deployment with an updated ticket number
+
+----
+====
+
+
+== View Violations Report
+
+A complete record of the event can be found on the *Violations* page.
+
+.Procedure
+. Navigate to the *Violation* page from the left navigation bar.
+. Use the Filter Bar to find the `Policy: Log4Shell: log4j Remote Code Execution vulnerability` and select the policy name.
+. Explore the list of the violation events.
+
+== Summary
+
+You enabled Log4Shell deploy-time policy enforcement, and verified that the policy prevented the `log4shell` container from running.
